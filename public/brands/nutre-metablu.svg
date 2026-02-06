@@ -1,0 +1,7 @@
+<svg width="180" height="56" viewBox="0 0 180 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="56" rx="12" fill="#FFFFFF"/>
+  <rect x="16" y="18" width="16" height="20" rx="6" fill="#22C55E"/>
+  <path d="M24 21v14" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M19 28h10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="44" y="33" fill="#1F2937" font-family="Arial, sans-serif" font-size="16" font-weight="700">Metablu</text>
+</svg>

@@ -3,41 +3,41 @@
 @import "../styles/phone-overrides.css";
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {--color-primary-50:  #f0fdf4;}
-@theme {--color-primary-100: #dcfce7;}
-@theme {--color-primary-200: #bbf7d0;}
-@theme {--color-primary-300: #86efac;}
-@theme {--color-primary-400: #4ade80;}
-@theme {--color-primary-500: #009739;}
-@theme {--color-primary-600: #008131;}
-@theme {--color-primary-700: #006628;}
-@theme {--color-primary-800: #004d1f;}
-@theme {--color-primary-900: #003315;}
-@theme {--color-primary-950: #001a0a;}
+@theme {--color-primary-50:  #f6f2ff;}
+@theme {--color-primary-100: #eee5ff;}
+@theme {--color-primary-200: #decaff;}
+@theme {--color-primary-300: #c8a4ff;}
+@theme {--color-primary-400: #ab73ff;}
+@theme {--color-primary-500: #8b3dff;}
+@theme {--color-primary-600: #7428e6;}
+@theme {--color-primary-700: #5d1fb8;}
+@theme {--color-primary-800: #46198a;}
+@theme {--color-primary-900: #2e105c;}
+@theme {--color-primary-950: #1a0834;}
 
-@theme {--color-secondary-50:  #fffdea;}
-@theme {--color-secondary-100: #fef9c3;}
-@theme {--color-secondary-200: #fef08a;}
-@theme {--color-secondary-300: #fde047;}
-@theme {--color-secondary-400: #facc15;}
-@theme {--color-secondary-500: #ffcc29;}
-@theme {--color-secondary-600: #e6b800;}
-@theme {--color-secondary-700: #cca300;}
-@theme {--color-secondary-800: #997a00;}
-@theme {--color-secondary-900: #665200;}
-@theme {--color-secondary-950: #332900;}
+@theme {--color-secondary-50:  #fff9e8;}
+@theme {--color-secondary-100: #fff0c4;}
+@theme {--color-secondary-200: #ffe497;}
+@theme {--color-secondary-300: #ffd263;}
+@theme {--color-secondary-400: #ffc138;}
+@theme {--color-secondary-500: #e5ab00;}
+@theme {--color-secondary-600: #bf8e00;}
+@theme {--color-secondary-700: #997100;}
+@theme {--color-secondary-800: #705200;}
+@theme {--color-secondary-900: #4a3600;}
+@theme {--color-secondary-950: #261b00;}
 
-@theme {--color-tertiary-50:  #eff6ff;}
-@theme {--color-tertiary-100: #dbeafe;}
-@theme {--color-tertiary-200: #bfdbfe;}
-@theme {--color-tertiary-300: #93c5fd;}
-@theme {--color-tertiary-400: #60a5fa;}
-@theme {--color-tertiary-500: #002776;}
-@theme {--color-tertiary-600: #001f5e;}
-@theme {--color-tertiary-700: #001947;}
-@theme {--color-tertiary-800: #00122f;}
-@theme {--color-tertiary-900: #000c1a;}
-@theme {--color-tertiary-950: #00060d;}
+@theme {--color-tertiary-50:  #edf3ff;}
+@theme {--color-tertiary-100: #d9e6ff;}
+@theme {--color-tertiary-200: #bed4ff;}
+@theme {--color-tertiary-300: #9ab9ff;}
+@theme {--color-tertiary-400: #6d95ff;}
+@theme {--color-tertiary-500: #4c74e5;}
+@theme {--color-tertiary-600: #3757bf;}
+@theme {--color-tertiary-700: #294299;}
+@theme {--color-tertiary-800: #1e2f73;}
+@theme {--color-tertiary-900: #14204d;}
+@theme {--color-tertiary-950: #0a1129;}
 
 @theme {--color-info-50: #eff6ff;}
 @theme {--color-info-100: #dbeafe;}
@@ -88,17 +88,17 @@
 @theme {--color-destructive-950: #2b0009;}
 
 @theme {
-  --color-background: #F6F5F7;  /* light mode */
-  --color-foreground: #1F1F1F;  /* light mode */
+  --color-background: #E8EDF4;  /* light mode */
+  --color-foreground: #101827;  /* light mode */
   --color-bg-card: #ffffff;  /* light mode */
-  --color-border-card: #ffffff;  /* light mode */
+  --color-border-card: #D3DEEC;  /* light mode */
 
-    --font-primary: "Work Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    --font-primary: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
                Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
                "Segoe UI Emoji", sans-serif;
 
   /* Secondary font (e.g., for headings) */
-  --font-secondary: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+  --font-secondary: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
                     Roboto, "Helvetica Neue", Arial, "Noto Sans",
                     "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
 
@@ -106,10 +106,10 @@
 
 /* Class override so a `.dark` class wins regardless of system */
 :root.dark {
-  --color-background: #111111;
-  --color-foreground: #FFFEFC;
-  --color-bg-card: #222222;
-  --color-border-card: #444444;
+  --color-background: #111827;
+  --color-foreground: #F8FAFC;
+  --color-bg-card: #1F2937;
+  --color-border-card: #374151;
 }
 
 
@@ -145,4 +145,3 @@ button:disabled{
 @layer utilities {
   .rc-slider-disabled { background-color: var(--color-background) !important;}
 }
-

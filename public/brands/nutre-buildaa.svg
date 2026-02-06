@@ -1,0 +1,10 @@
+<svg width="180" height="56" viewBox="0 0 180 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="56" rx="12" fill="#FFFFFF"/>
+  <rect x="16" y="18" width="16" height="20" rx="4" fill="#94A3B8"/>
+  <rect x="20" y="22" width="3" height="3" rx="1" fill="#FFFFFF"/>
+  <rect x="25" y="22" width="3" height="3" rx="1" fill="#FFFFFF"/>
+  <rect x="20" y="27" width="3" height="3" rx="1" fill="#FFFFFF"/>
+  <rect x="25" y="27" width="3" height="3" rx="1" fill="#FFFFFF"/>
+  <rect x="23" y="32" width="5" height="6" rx="1" fill="#FFFFFF"/>
+  <text x="44" y="33" fill="#1F2937" font-family="Arial, sans-serif" font-size="16" font-weight="700">Buildaa</text>
+</svg>
