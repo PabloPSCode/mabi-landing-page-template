@@ -6,428 +6,283 @@ import { useState, type CSSProperties } from "react";
 import FadeContainer from "@/components/animations-and-loading/FadeContainer";
 import RevealContainer from "@/components/animations-and-loading/RevealContainer";
 import ZoomContainer from "@/components/animations-and-loading/ZoomContainer";
-import Button from "@/components/buttons/Button";
-import Footer from "@/components/elements/Footer";
-import { HeroSection } from "@/components/elements/HeroSection";
 import LandingHeader from "@/components/elements/LandingHeader";
-import { Section } from "@/components/elements/Section";
 import BrandMarquee from "@/components/marketing/BrandMarquee";
-import MobileSeal from "@/components/marketing/MobileSeal";
-import Paragraph from "@/components/typography/Paragraph";
-import Subtitle from "@/components/typography/Subtitle";
-import Title from "@/components/typography/Title";
+import { CheckIcon } from "@phosphor-icons/react";
 import {
   nutreLandingBottomCta,
   nutreLandingBrandLogos,
   nutreLandingFooterLinks,
   nutreLandingHero,
-  nutreLandingMidHero,
   nutreLandingNavItems,
   nutreLandingShowcaseSections,
-  nutreLandingSocialLinks,
-  type NutreLandingShowcaseSection,
+  whatsappCtaHref,
 } from "@/mocks/nutreLanding";
 
-const darkSurfaceStyle: CSSProperties = {
-  "--color-foreground": "#F8FAFC",
-  "--color-background": "#08112A",
+/* Global nav renders on true black — the only pure black on the page. */
+const navSurface: CSSProperties = {
+  "--color-background": "#000000",
+  "--color-foreground": "#ffffff",
 } as CSSProperties;
 
-function ShowcaseVisual({ section }: { section: NutreLandingShowcaseSection }) {
-  if (section.visual === "dual-phone") {
-    return (
-      <div className="relative mx-auto w-full max-w-md">
-        <Image
-          src={section.mainImage}
-          alt={section.mainAlt}
-          width={560}
-          height={760}
-          className="w-[62%] h-auto"
-        />
-        {section.secondaryImage && section.secondaryAlt && (
-          <Image
-            src={section.secondaryImage}
-            alt={section.secondaryAlt}
-            width={420}
-            height={680}
-            className="absolute bottom-0 right-0 w-[58%] h-auto"
-          />
-        )}
-        {section.overlayImage && section.overlayAlt && (
-          <Image
-            src={section.overlayImage}
-            alt={section.overlayAlt}
-            width={760}
-            height={520}
-            className="hidden sm:block absolute top-[26%] right-0 w-[48%] rounded-xl border-2 border-[#0D152A] shadow-xl"
-          />
-        )}
-      </div>
-    );
-  }
-
-  if (section.visual === "phone-overlay") {
-    return (
-      <div className="relative mx-auto w-full max-w-sm">
-        <Image
-          src={section.mainImage}
-          alt={section.mainAlt}
-          width={420}
-          height={680}
-          className="w-[72%] h-auto mx-auto rounded-xl"
-        />
-        {section.overlayImage && section.overlayAlt && (
-          <Image
-            src={section.overlayImage}
-            alt={section.overlayAlt}
-            width={760}
-            height={520}
-            className="hidden sm:block absolute left-0 top-[32%] w-[62%] rounded-xl border-2 border-[#0D152A] shadow-xl"
-          />
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative mx-auto w-full">
-      <Image
-        src={section.mainImage}
-        alt={section.mainAlt}
-        width={920}
-        height={580}
-        className="w-full h-auto"
-      />
-      {section.overlayImage && section.overlayAlt && (
-        <Image
-          src={section.overlayImage}
-          alt={section.overlayAlt}
-          width={760}
-          height={520}
-          className="hidden sm:block absolute right-0 top-0 w-[36%] rounded-xl border-2 border-[#0D152A] shadow-xl"
-        />
-      )}
-    </div>
-  );
-}
-
-function HeroWires() {
-  return (
-    <>
-      <div className="pointer-events-none absolute left-[42%] top-[20%] hidden lg:block h-[44%] w-[16%] rounded-[34px] border-[10px] border-[#C026D3] opacity-95" />
-      <div className="pointer-events-none absolute left-[47%] top-[20%] hidden lg:block h-[44%] w-[14%] rounded-[34px] border-[10px] border-[#EAB308] opacity-95" />
-      <div className="pointer-events-none absolute left-[52%] top-[20%] hidden lg:block h-[44%] w-[14%] rounded-[34px] border-[10px] border-[#7C3AED] opacity-95" />
-
-      <div className="pointer-events-none absolute -right-8 top-[22%] h-4 w-[74%] bg-[#C026D3] opacity-95" />
-      <div className="pointer-events-none absolute -right-20 top-[26%] h-4 w-[82%] bg-[#EAB308] opacity-95" />
-      <div className="pointer-events-none absolute -right-28 top-[30%] h-4 w-[90%] bg-[#7C3AED] opacity-95" />
-    </>
-  );
-}
-
-function CtaWires() {
-  return (
-    <>
-      <div className="pointer-events-none absolute left-[20%] top-[26%] hidden lg:block h-[46%] w-[22%] rounded-[34px] border-[10px] border-[#C026D3] opacity-95" />
-      <div className="pointer-events-none absolute left-[24%] top-[30%] hidden lg:block h-[42%] w-[22%] rounded-[34px] border-[10px] border-[#EAB308] opacity-95" />
-      <div className="pointer-events-none absolute left-[28%] top-[34%] hidden lg:block h-[38%] w-[22%] rounded-[34px] border-[10px] border-[#7C3AED] opacity-95" />
-
-      <div className="pointer-events-none absolute -right-10 bottom-[18%] h-4 w-[76%] bg-[#C026D3] opacity-95" />
-      <div className="pointer-events-none absolute -right-20 bottom-[12%] h-4 w-[84%] bg-[#7C3AED] opacity-95" />
-    </>
-  );
-}
+/* Hero feature chips. */
+const heroHighlights = [
+  "Bioimpedância INBODY",
+  "Presencial e online",
+  "Método ReConnect exclusivo",
+];
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-background text-foreground">
-      <div
-        className="relative overflow-hidden bg-gradient-to-r from-[#071027] via-[#0A1432] to-[#2A1448]"
-        style={darkSurfaceStyle}
+    <div className="bg-canvas text-ink">
+      {/* ── Global nav — slim true-black bar ─────────────────────────── */}
+      <LandingHeader.Root
+        size="sm"
+        className="bg-black text-white border-white/10"
+        style={navSurface}
       >
-        <HeroWires />
 
-        <LandingHeader.Root
-          className="bg-transparent border-foreground/10"
-          style={darkSurfaceStyle}
-        >
-          <LandingHeader.Left>
-            <LandingHeader.Logo
-              src="/logo.svg"
-              alt="NutrePlus"
-            />
-          </LandingHeader.Left>
-          <LandingHeader.Center>
-            <LandingHeader.Nav>
-              {nutreLandingNavItems.map((item, index) => (
-                <LandingHeader.Nav.Item
-                  key={item.label}
-                  href={item.href}
-                  active={index === 0}
-                >
-                  {item.label}
-                </LandingHeader.Nav.Item>
-              ))}
-            </LandingHeader.Nav>
-          </LandingHeader.Center>
-          <LandingHeader.Right className="gap-2 sm:gap-3">
-            <LandingHeader.CTA
-              label={nutreLandingHero.primaryCta}
-              className="hidden sm:inline-flex bg-primary-700"
-            />
-            <LandingHeader.MobileMenuToggle
-              open={mobileMenuOpen}
-              onToggle={setMobileMenuOpen as never}
-              className="text-white"
-            />
-            <LandingHeader.MobileMenuPanel
-              open={mobileMenuOpen}
-              cta={
-                <LandingHeader.CTA
-                  label={nutreLandingHero.primaryCta}
-                  className="w-full bg-white text-primary-700"
-                />
-              }
-            >
-              {nutreLandingNavItems.map((item) => (
-                <LandingHeader.Nav.Item key={item.label} href={item.href}>
-                  {item.label}
-                </LandingHeader.Nav.Item>
-              ))}
-            </LandingHeader.MobileMenuPanel>
-          </LandingHeader.Right>
-        </LandingHeader.Root>
-
-        <HeroSection
-          size="full"
-          sectionClassName="relative bg-transparent items-stretch pt-8 pb-14 md:pb-20"
-        >
-          <div
-            id="inicio"
-            className="w-full max-w-7xl mx-auto grid gap-10 md:grid-cols-[1fr_0.85fr] items-center"
-          >
-            <RevealContainer once className="flex flex-col gap-4">
-              <Title
-                content={nutreLandingHero.title}
-                className="text-white text-5xl sm:text-6xl"
-              />
-              <Subtitle
-                content={nutreLandingHero.subtitle}
-                className="text-white/85 text-2xl"
-              />
-              <Paragraph
-                content={nutreLandingHero.description}
-                className="text-white/70 max-w-lg"
-              />
-              <div className="flex flex-wrap gap-3 mt-2">
-                <Button
-                  label={nutreLandingHero.primaryCta}
-                  variant="outlined"
-                  className="bg-white text-primary-700 hover:bg-white/90"
-                />
-              </div>
-            </RevealContainer>
-
-            <ZoomContainer
-              once
-              scale={1}
-              className="flex justify-center md:justify-end"
-            >
-              <Image
-                src="/images/mobile1.png"
-                alt="Tela inicial do aplicativo NutrePlus"
-                width={560}
-                height={760}
-                className="w-full max-w-[260px] sm:max-w-[320px] h-auto drop-shadow-[0_22px_70px_rgba(0,0,0,0.55)]"
-              />
-            </ZoomContainer>
-          </div>
-
-          <ZoomContainer
-            once
-            scale={1}
-            className="w-full max-w-6xl mx-auto mt-10 md:mt-14"
-          >
-            <Image
-              src="/images/tablet2.png"
-              alt="Painel desktop NutrePlus"
-              width={920}
-              height={580}
-              className="w-full h-auto"
-            />
-          </ZoomContainer>
-
-          <div className="w-full max-w-6xl mx-auto mt-10 md:mt-14 grid gap-8 md:grid-cols-[0.65fr_1fr] items-center">
-            <ZoomContainer
-              once
-              scale={1}
-              className="flex justify-center md:justify-start"
-            >
-              <Image
-                src="/images/mobile4.png"
-                alt="Aplicativo NutrePlus em visual mobile"
-                width={420}
-                height={680}
-                className="w-full max-w-[210px] sm:max-w-[240px] h-auto rounded-xl"
-              />
-            </ZoomContainer>
-
-            <RevealContainer once className="flex flex-col gap-5 md:pl-10">
-              <Title
-                content={nutreLandingMidHero.title}
-                className="text-white text-4xl"
-              />
-              <Paragraph
-                content={nutreLandingMidHero.description}
-                className="text-white/70 max-w-md"
-              />
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  label={nutreLandingMidHero.primaryCta}
-                  variant="outlined"
-                  className="bg-white text-primary-700 hover:bg-white/90"
-                />
-              </div>
-            </RevealContainer>
-          </div>
-        </HeroSection>
-      </div>
-
-      <Section size="full" sectionClassName="bg-[#ECEEF2] items-stretch py-14">
-        <div
-          id="parceiros"
-          className="w-full max-w-7xl mx-auto flex flex-col items-center gap-4"
-        >
-          <Title
-            content="Nossos principais parceiros"
-            className="text-4xl sm:text-5xl text-center"
+        <LandingHeader.Center className="gap-2 sm:gap-3 w-full max-w-3xl">
+          <LandingHeader.Nav>
+            {nutreLandingNavItems.map((item, index) => (
+              <LandingHeader.Nav.Item
+                key={item.label}
+                href={item.href}
+                active={index === 0}
+              >
+                {item.label}
+              </LandingHeader.Nav.Item>
+            ))}
+          </LandingHeader.Nav>
+        </LandingHeader.Center>
+        <LandingHeader.Right className="gap-2 sm:gap-3">
+          <LandingHeader.CTA
+            label={nutreLandingHero.primaryCta}
+            onClick={() => window.open(whatsappCtaHref, "_blank", "noopener")}
+            className="hidden sm:inline-flex rounded-full bg-primary-500 hover:bg-action-blue-focus"
           />
-          <FadeContainer once className="w-full mt-2">
+          <LandingHeader.MobileMenuToggle
+            open={mobileMenuOpen}
+            onToggle={setMobileMenuOpen as never}
+            className="text-white"
+          />
+          <LandingHeader.MobileMenuPanel
+            open={mobileMenuOpen}
+            cta={
+              <LandingHeader.CTA
+                label={nutreLandingHero.primaryCta}
+                onClick={() => window.open(whatsappCtaHref, "_blank", "noopener")}
+                className="w-full rounded-full bg-primary-500"
+              />
+            }
+          >
+            {nutreLandingNavItems.map((item) => (
+              <LandingHeader.Nav.Item key={item.label} href={item.href}>
+                {item.label}
+              </LandingHeader.Nav.Item>
+            ))}
+          </LandingHeader.MobileMenuPanel>
+        </LandingHeader.Right>
+      </LandingHeader.Root>
+
+      {/* ── Hero · two columns (content + photo) ─────────────────────── */}
+      <section id="inicio" className="w-full bg-canvas text-ink px-6 py-16 ">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2">
+          {/* Left · content */}
+          <RevealContainer once className="flex flex-col">
+            <p className="type-eyebrow uppercase tracking-[0.18em] text-primary-600">
+              {nutreLandingHero.eyebrow}
+            </p>
+            <h1 className="type-hero mt-4">{nutreLandingHero.title}</h1>
+            <p className="type-lead mt-4 text-ink">{nutreLandingHero.subtitle}</p>
+            <p className="type-body mt-4 max-w-xl text-ink-muted-80">
+              {nutreLandingHero.description}
+            </p>
+
+            {/* Email capture + CTA */}
+            <div className="mt-8 max-w-md">
+              <label htmlFor="hero-email" className="type-caption font-semibold text-ink">
+                Seu e-mail
+              </label>
+              <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+                <input
+                  id="hero-email"
+                  type="email"
+                  placeholder="voce@email.com"
+                  className="type-body w-full flex-1 rounded-full border border-hairline bg-white px-5 py-3 text-ink outline-none placeholder:text-ink-muted-48 focus:border-primary-500"
+                />
+                <button
+                  className="btn-pill btn-pill-primary shrink-0"
+                >
+                  {nutreLandingHero.primaryCta}
+                </button>
+              </div>
+            </div>
+
+            {/* Highlights */}
+            <ul className="mt-6 flex flex-wrap gap-3">
+              {heroHighlights.map((item) => (
+                <li
+                  key={item}
+                  className="inline-flex items-center gap-2 rounded-full bg-parchment px-4 py-2"
+                >
+                  <CheckIcon weight="bold" className="h-4 w-4 text-primary-600" />
+                  <span className="type-caption font-semibold text-ink">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </RevealContainer>
+
+          {/* Right · photo */}
+          <ZoomContainer once scale={1} className="w-full">
+            <div className="relative aspect-5/4 w-full overflow-hidden rounded-[28px]">
+              <Image
+                src="/images/nutre6.jpg"
+                alt="Juliana Alvarenga — nutrição funcional e esportiva"
+                fill
+                priority
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </ZoomContainer>
+        </div>
+      </section>
+
+
+      {/* ── Tile 3 · Partners (parchment) ────────────────────────────── */}
+      <section
+        id="parceiros"
+        className="w-full bg-parchment text-ink px-6 py-16 md:py-20"
+      >
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-8">
+          <h2 className="type-display text-center">Trajetória em grandes marcas</h2>
+          <FadeContainer once className="w-full">
             <BrandMarquee
               logos={nutreLandingBrandLogos}
               speed={30}
               itemsGap="close"
+              imageFilter="grayscale"
             />
           </FadeContainer>
         </div>
-      </Section>
+      </section>
 
-      {nutreLandingShowcaseSections.map((section, index) => (
-        <Section
-          key={section.title}
-          size="full"
-          sectionClassName="bg-[#E3E8EF] items-stretch py-14"
-        >
-          <div
+      {/* ── Showcase tiles · alternating white ↔ dark ────────────────── */}
+      {nutreLandingShowcaseSections.map((section, index) => {
+        const dark = index % 2 === 1;
+        return (
+          <section
+            key={section.title}
             id={section.anchor}
-            className="w-full max-w-7xl mx-auto grid gap-10 md:grid-cols-2 items-center"
+            className={
+              dark
+                ? "w-full bg-tile-dark-3 text-white px-6 py-14 md:py-20"
+                : "w-full bg-canvas text-ink px-6 py-14 md:py-20"
+            }
           >
             <RevealContainer
-              once={index === 0}
-              className={section.align === "image-left" ? "order-2" : "order-1"}
+              once
+              className="mx-auto flex max-w-3xl flex-col items-center text-center"
             >
-              <Title content={section.title} className="text-5xl" />
-              <Paragraph
-                content={section.description}
-                className="text-foreground/75 mt-4 max-w-xl"
-              />
+              <h2 className="type-display">{section.title}</h2>
+              <p
+                className={
+                  dark
+                    ? "type-body mt-4 max-w-2xl text-body-muted"
+                    : "type-body mt-4 max-w-2xl text-ink-muted-80"
+                }
+              >
+                {section.description}
+              </p>
+              <a
+                href={whatsappCtaHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={dark ? "link-sky type-body mt-6" : "link-action type-body mt-6"}
+              >
+                Agendar consulta ›
+              </a>
             </RevealContainer>
 
-            <ZoomContainer
-              once={index !== 1}
-              scale={1}
-              className={section.align === "image-left" ? "order-1" : "order-2"}
-            >
-              <ShowcaseVisual section={section} />
-            </ZoomContainer>
-          </div>
-        </Section>
-      ))}
-
-      <Section
-        size="full"
-        sectionClassName="relative overflow-hidden bg-gradient-to-r from-[#08112A] via-[#0E1839] to-[#2A1448] text-white items-stretch py-16"
-      >
-        <CtaWires />
-
-        <div
-          id="contato"
-          className="w-full max-w-7xl mx-auto grid gap-10 md:grid-cols-[0.7fr_1fr] items-center relative z-10"
-        >
-          <ZoomContainer
-            once
-            scale={1}
-            className="flex justify-center md:justify-start"
-          >
-            <Image
-              src="/images/mobile1.png"
-              alt="Aplicativo NutrePlus em destaque final"
-              width={420}
-              height={680}
-              className="w-full max-w-[210px] sm:max-w-[240px] h-auto"
-            />
-          </ZoomContainer>
-          <RevealContainer once className="flex flex-col gap-6 md:pl-8">
-            <Title
-              content={nutreLandingBottomCta.title}
-              className="text-white text-4xl"
-            />
-            <Paragraph
-              content={nutreLandingBottomCta.description}
-              className="text-white/70 max-w-md"
-            />
-            <Button
-              label={nutreLandingBottomCta.primaryCta}
-              variant="outlined"
-              className="bg-white text-primary-700 hover:bg-white/90"
-            />
-          </RevealContainer>
-        </div>
-      </Section>
-
-      <Footer.Root
-        className="bg-[#08112A] text-white"
-        bordered
-        style={darkSurfaceStyle}
-      >
-        <Footer.Top columns={5}>
-          {nutreLandingFooterLinks.map((column) => (
-            <Footer.Column key={column.title} className="items-start">
-              <Subtitle
-                content={column.title}
-                element="h4"
-                className="text-sm text-white"
+            <ZoomContainer once scale={1} className="mx-auto mt-14 flex justify-center">
+              <Image
+                src={section.mainImage}
+                alt={section.mainAlt}
+                width={480}
+                height={720}
+                className="product-shadow h-auto w-full max-w-60 sm:max-w-70"
               />
-              <div className="flex flex-col gap-2 mt-3">
-                {column.links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="text-xs sm:text-sm text-white/70 hover:text-white"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </Footer.Column>
-          ))}
-          <Footer.Column>
-            <div className="flex items-center gap-2">
-              <MobileSeal />
-            </div>
-          </Footer.Column>
-        </Footer.Top>
+            </ZoomContainer>
+          </section>
+        );
+      })}
 
-        <Footer.SocialRow
-          items={nutreLandingSocialLinks}
-          iconsClassName="text-white"
-          iconsWeight="fill"
-          className="bg-transparent"
-          bordered
-        ></Footer.SocialRow>
-      </Footer.Root>
+      {/* ── Tile · Closing CTA (dark) ────────────────────────────────── */}
+      <section
+        id="planos"
+        className="w-full bg-tile-dark text-white px-6 py-14 md:py-20"
+      >
+        <RevealContainer once className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <h2 className="type-display">{nutreLandingBottomCta.title}</h2>
+          <p className="type-body mt-4 max-w-2xl text-body-muted">
+            {nutreLandingBottomCta.description}
+          </p>
+          <p className="type-caption mt-6 text-body-muted">
+            Alpha Green Business Tower · Av. Cauaxi, 293 — Alphaville, Barueri/SP
+          </p>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href={whatsappCtaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-pill btn-pill-primary"
+            >
+              {nutreLandingBottomCta.primaryCta}
+            </a>
+          </div>
+        </RevealContainer>
+      </section>
+
+      {/* ── Footer (parchment) ───────────────────────────────────────── */}
+      <footer
+        id="contato"
+        className="w-full bg-parchment text-ink-muted-80"
+      >
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-8 px-6 py-16 sm:grid-cols-4">
+          {nutreLandingFooterLinks.map((column) => (
+            <div key={column.title} className="flex flex-col">
+              <h4 className="type-caption font-semibold text-ink">{column.title}</h4>
+              <ul className="mt-2 flex flex-col">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="type-caption leading-[2.2] text-ink-muted-80 hover:text-ink"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-t border-hairline">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="type-fine text-ink-muted-48">
+              © {new Date().getFullYear()} Juliana Alvarenga Nutricionista · CRN 54483. Todos os direitos reservados.
+            </p>
+            <p className="type-fine max-w-xl text-ink-muted-48">
+              As informações deste site têm cunho educacional e não substituem uma
+              consulta. Não use o conteúdo para autodiagnóstico ou autotratamento.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

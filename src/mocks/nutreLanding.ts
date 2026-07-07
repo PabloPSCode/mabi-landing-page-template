@@ -1,23 +1,34 @@
+// Marketing copy for Juliana Alvarenga — Nutricionista (Alphaville/Barueri · SP).
+// Export names are kept from the original template so page.tsx keeps working.
+
+/** WhatsApp deep-link used by every primary CTA (matches the source site). */
+export const whatsappCtaHref =
+  "https://wa.me/5511982077995?text=" +
+  encodeURIComponent(
+    "Olá, vim do site da Juliana Alvarenga Nutricionista e gostaria de mais informações para agendar uma consulta.",
+  );
+
 export const nutreLandingNavItems = [
   { label: "Início", href: "#inicio" },
-  { label: "Soluções", href: "#solucoes" },
-  { label: "Resultados", href: "#resultados" },
+  { label: "Áreas de atuação", href: "#bioimpedancia" },
   { label: "Planos", href: "#planos" },
+  { label: "Contato", href: "#contato" },
 ];
 
 export const nutreLandingHero = {
-  title: "NutrePlus",
-  subtitle: "Nutrição personalizada para iOS e Android",
+  eyebrow: "Nutricionista • CRN 54483",
+  title: "Juliana Alvarenga",
+  subtitle: "Nutrição para uma vida plena.",
   description:
-    "Descubra NutrePlus, o aplicativo líder em nutrição personalizada. Com a orientação dos nossos nutricionistas especializados, você pode ter segurança de que sua saúde está em boas mãos.",
-  primaryCta: "Começar agora",
+    "Conectando corpo, mente e performance para sua saúde e bem-estar. Planos personalizados que se adaptam a cada fase da vida, da gestação e infância à alta performance esportiva.",
+  primaryCta: "Agendar consulta",
 };
 
 export const nutreLandingMidHero = {
-  title: "Acompanhe sua evolução com suporte humano em tempo real",
+  title: "Método ReConnect: ciência, personalização e acolhimento",
   description:
-    "Nossos programas de vida saudável oferecem uma abordagem única e adaptada às suas necessidades individuais. Obtenha um plano nutricional personalizado elaborado por nutricionistas especializados, que estarão com você em todas as etapas pelo chat para garantir que você atinja suas metas de saúde.",
-  primaryCta: "Quero meu plano",
+    "Nutricionista com 18 anos de experiência, especialista em Nutrição Funcional, Integrativa, Intestinal e Esportiva. O Método ReConnect vai além da alimentação: trabalha nutrição, sono, intestino, vitalidade, autoconhecimento e equilíbrio.",
+  primaryCta: "Agendar consulta",
 };
 
 export const nutreLandingBrandLogos = [
@@ -52,85 +63,90 @@ export interface NutreLandingShowcaseSection {
   overlayAlt?: string;
 }
 
+/** Áreas de atuação — each rendered as an alternating full-bleed tile. */
 export const nutreLandingShowcaseSections: NutreLandingShowcaseSection[] = [
   {
-    anchor: "solucoes",
-    title: "Plano nutricional personalizado para cada meta",
+    anchor: "bioimpedancia",
+    title: "Bioimpedância INBODY em toda consulta",
     description:
-      "Monte protocolos alimentares de acordo com o objetivo de cada aluno e entregue recomendações claras no app da sua marca.",
+      "Mais do que uma balança, a bioimpedância INBODY é uma ferramenta de alta precisão presente em todas as consultas. Ela mede massa magra, gordura e hidratação, garantindo que sua evolução seja real.",
     align: "text-left",
     visual: "phone-overlay",
-    mainImage: "/images/mobile3.png",
-    mainAlt: "Painel NutrePlus",
-    overlayImage: "",
-    overlayAlt: "",
+    mainImage: "/images/mobile4.png",
+    mainAlt: "Avaliação de composição corporal com bioimpedância INBODY",
   },
   {
-    anchor: "resultados",
-    title: "Chat com nutricionistas durante toda a jornada",
+    anchor: "funcional",
+    title: "Nutrição Funcional e Integrativa",
     description:
-      "Mantenha o acompanhamento ativo com mensagens, ajustes de plano e orientações rápidas para aumentar adesão e consistência.",
+      "Mais do que contar calorias, a nutrição funcional busca a causa raiz dos sintomas. Com ajustes alimentares, suplementação individualizada e estratégias anti-inflamatórias para melhorar energia, saúde intestinal, pele, cabelos e qualidade de vida.",
     align: "image-left",
     visual: "phone-overlay",
-    mainImage: "/images/mobile4.png",
-    mainAlt: "Aplicativo NutrePlus em smartphone",
-    overlayImage: "",
-    overlayAlt: "",
+    mainImage: "/images/mobile3.png",
+    mainAlt: "Plano alimentar funcional e integrativo personalizado",
+  },
+  {
+    anchor: "esportiva",
+    title: "Nutrição Esportiva e Alta Performance",
+    description:
+      "Eleve seu treino com resultados reais. A nutrição esportiva otimiza cada etapa — pré, intra e pós-treino — para melhorar a performance, acelerar a recuperação muscular e aprimorar a composição corporal.",
+    align: "text-left",
+    visual: "phone-overlay",
+    mainImage: "/images/nutre5.jpg",
+    mainAlt: "Acompanhamento de nutrição esportiva e alta performance",
   }
 ];
 
 export const nutreLandingBottomCta = {
-  title: "Comece hoje com o NutrePlus",
+  title: "Pronto(a) para começar sua transformação?",
   description:
-    "Leve nutrição personalizada para seus alunos com planos sob medida, suporte via chat e acompanhamento contínuo dos resultados.",
-  primaryCta: "Solicitar demonstração",
+    "Atendimento presencial em Alphaville, Barueri — com bioimpedância INBODY — e também online por videochamada. Agende sua consulta particular.",
+  primaryCta: "Agendar no WhatsApp",
 };
 
 export const nutreLandingFooterLinks = [
   {
-    title: "Plataforma",
+    title: "Atendimento",
     links: [
-      { label: "iOS + Android", href: "#" },
-      { label: "Integrações", href: "#" },
-      { label: "Área do especialista", href: "#" },
-      { label: "Bem-estar", href: "#" },
+      { label: "Consulta avulsa", href: "#bioimpedancia" },
+      { label: "Planos de acompanhamento", href: "#planos" },
+      { label: "Bioimpedância INBODY", href: "#bioimpedancia" },
+      { label: "Agendar consulta", href: whatsappCtaHref },
     ],
   },
   {
-    title: "Produto",
+    title: "Áreas de atuação",
     links: [
-      { label: "Planos", href: "#planos" },
-      { label: "Visão geral", href: "#" },
-      { label: "Funcionalidades", href: "#solucoes" },
-      { label: "Acessibilidade", href: "#" },
+      { label: "Nutrição Funcional", href: "#funcional" },
+      { label: "Nutrição Esportiva", href: "#esportiva" },
+      { label: "Nutrição Infantil", href: "#fases" },
+      { label: "Nutrição da Gestante", href: "#fases" },
     ],
   },
   {
-    title: "Especialistas",
+    title: "Sobre",
     links: [
-      { label: "Nutricionistas credenciados", href: "#" },
-      { label: "Acompanhamento por chat", href: "#resultados" },
-      { label: "Consultas online", href: "#" },
-      { label: "Método personalizado", href: "#solucoes" },
+      { label: "Método ReConnect", href: "#inicio" },
+      { label: "Juliana Alvarenga", href: "#inicio" },
+      { label: "Perguntas frequentes", href: "#planos" },
+      { label: "Localização", href: "#contato" },
     ],
   },
   {
-    title: "Recursos",
+    title: "Contato",
     links: [
-      { label: "Central de ajuda", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Tutoriais", href: "#" },
-      { label: "Perguntas frequentes", href: "#" },
+      { label: "WhatsApp", href: whatsappCtaHref },
+      { label: "Instagram @juAlvarenganutri", href: "https://instagram.com/juAlvarenganutri" },
+      { label: "Alphaville — Barueri/SP", href: "#contato" },
+      { label: "CRN 54483", href: "#inicio" },
     ],
-  }
+  },
 ];
 
 export const nutreLandingSocialLinks: Array<{
   iconName: "instagram" | "facebook" | "youtube" | "whatsapp";
   href: string;
 }> = [
-  { iconName: "instagram", href: "#" },
-  { iconName: "facebook", href: "#" },
-  { iconName: "youtube", href: "#" },
-  { iconName: "whatsapp", href: "#" },
+  { iconName: "instagram", href: "https://instagram.com/juAlvarenganutri" },
+  { iconName: "whatsapp", href: whatsappCtaHref },
 ];

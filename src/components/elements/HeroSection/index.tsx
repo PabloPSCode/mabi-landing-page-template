@@ -51,7 +51,7 @@ export const HeroSection: FC<HeroSectionProps> = ({
       )}
       style={
         backgroundImageLocalPath
-          ? { backgroundImage: `url(${backgroundImageLocalPath})` }
+          ? { backgroundImage: `url(${backgroundImageLocalPath})`, transform: "translateZ(0)" }
           : undefined
       }
     >

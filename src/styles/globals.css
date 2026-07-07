@@ -3,17 +3,19 @@
 @import "../styles/phone-overrides.css";
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {--color-primary-50:  #f6f2ff;}
-@theme {--color-primary-100: #eee5ff;}
-@theme {--color-primary-200: #decaff;}
-@theme {--color-primary-300: #c8a4ff;}
-@theme {--color-primary-400: #ab73ff;}
-@theme {--color-primary-500: #8b3dff;}
-@theme {--color-primary-600: #7428e6;}
-@theme {--color-primary-700: #5d1fb8;}
-@theme {--color-primary-800: #46198a;}
-@theme {--color-primary-900: #2e105c;}
-@theme {--color-primary-950: #1a0834;}
+/* Primary = Apple "Action Blue" — the single interactive accent (DESIGN.md).
+   500 is Action Blue #0066cc (the default used across the component library). */
+@theme {--color-primary-50: #ecfdf5;}
+@theme {--color-primary-100: #d1fae5;}
+@theme {--color-primary-200: #a7f3d0;}
+@theme {--color-primary-300: #6ee7b7;}
+@theme {--color-primary-400: #34d399;}
+@theme {--color-primary-500: #10b981;}
+@theme {--color-primary-600: #059669;}
+@theme {--color-primary-700: #047857;}
+@theme {--color-primary-800: #065f46;}
+@theme {--color-primary-900: #064e3b;}
+@theme {--color-primary-950: #022c22;}
 
 @theme {--color-secondary-50:  #fff9e8;}
 @theme {--color-secondary-100: #fff0c4;}
@@ -88,28 +90,47 @@
 @theme {--color-destructive-950: #2b0009;}
 
 @theme {
-  --color-background: #E8EDF4;  /* light mode */
-  --color-foreground: #101827;  /* light mode */
-  --color-bg-card: #ffffff;  /* light mode */
-  --color-border-card: #D3DEEC;  /* light mode */
+  --color-background: #ffffff;  /* canvas — pure white */
+  --color-foreground: #1d1d1f;  /* ink — near-black */
+  --color-bg-card: #ffffff;
+  --color-border-card: #e0e0e0; /* hairline */
 
-    --font-primary: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-               Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
-               "Segoe UI Emoji", sans-serif;
+  /* ── Apple design-system semantic tokens (DESIGN.md) ───────────────── */
+  /* Accent shifted from Action Blue to a green scale (matches --color-primary). */
+  --color-action-blue:       #059669; /* primary — every interactive element */
+  --color-action-blue-focus: #10b981; /* brighter green for hover / focus ring */
+  --color-sky-link:          #34d399; /* in-copy links on dark tiles */
+  --color-ink:               #1d1d1f;
+  --color-ink-muted-80:      #333333;
+  --color-ink-muted-48:      #7a7a7a;
+  --color-body-muted:        #cccccc; /* secondary copy on dark tiles */
+  --color-canvas:            #ffffff;
+  --color-parchment:         #f5f5f7; /* signature off-white */
+  --color-pearl:             #fafafc;
+  --color-tile-dark:         #272729; /* primary dark tile */
+  --color-tile-dark-2:       #2a2a2c;
+  --color-tile-dark-3:       #252527;
+  --color-hairline:          #e0e0e0;
+  --color-divider-soft:      #f0f0f0;
+}
 
-  /* Secondary font (e.g., for headings) */
-  --font-secondary: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-                    Roboto, "Helvetica Neue", Arial, "Noto Sans",
-                    "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
-
+/* Font stacks live in a plain :root block (not @theme) so they are always
+   emitted verbatim and resolve on <html>. SF Pro on Apple platforms; Inter is
+   the closest open substitute elsewhere. The `"Inter"` fallback on the nested
+   var keeps the whole declaration valid even before --font-inter is inherited. */
+:root {
+  --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                  var(--font-inter, "Inter"), system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-secondary: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                    var(--font-inter, "Inter"), system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Class override so a `.dark` class wins regardless of system */
 :root.dark {
-  --color-background: #111827;
-  --color-foreground: #F8FAFC;
-  --color-bg-card: #1F2937;
-  --color-border-card: #374151;
+  --color-background: #1d1d1f;
+  --color-foreground: #f5f5f7;
+  --color-bg-card: #272729;
+  --color-border-card: #333333;
 }
 
 
@@ -120,6 +141,13 @@
 html{
   scroll-behavior: smooth;
   font-family: var(--font-primary);
+}
+
+body{
+  /* Inter "ss03" approximates SF Pro's rounded "a" (DESIGN.md font-substitute note). */
+  font-feature-settings: "ss03";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6, button, a {
@@ -144,4 +172,107 @@ button:disabled{
 
 @layer utilities {
   .rc-slider-disabled { background-color: var(--color-background) !important;}
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Apple design system — typography scale, pill buttons, product shadow.
+   Negative tracking at display sizes = the signature "Apple tight" cadence.
+   ══════════════════════════════════════════════════════════════════════ */
+@layer components {
+  /* ── Type tokens ─────────────────────────────────────────────────── */
+  .type-hero {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 6vw, 3.5rem);   /* 28 → 56px */
+    line-height: 1.07;
+    letter-spacing: -0.03em;
+  }
+  .type-display {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem); /* 28 → 40px */
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+  }
+  .type-lead {
+    font-family: var(--font-secondary);
+    font-weight: 400;
+    font-size: clamp(1.25rem, 2.6vw, 1.75rem); /* 20 → 28px */
+    line-height: 1.14;
+    letter-spacing: 0.007em;
+  }
+  .type-tagline {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    font-size: 1.3125rem;                      /* 21px */
+    line-height: 1.19;
+    letter-spacing: 0.011em;
+  }
+  .type-body {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 1.0625rem;                      /* 17px — not 16 */
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+  }
+  .type-caption {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 0.875rem;                       /* 14px */
+    line-height: 1.43;
+    letter-spacing: -0.016em;
+  }
+  .type-eyebrow {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+  }
+  .type-fine {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 0.75rem;                        /* 12px */
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Pill buttons — the one action grammar ───────────────────────── */
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    border-radius: 9999px;
+    padding: 11px 22px;
+    font-family: var(--font-primary);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.022em;
+    transition: transform 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
+  }
+  .btn-pill:active { transform: scale(0.95); }
+  .btn-pill:focus-visible {
+    outline: 2px solid var(--color-action-blue-focus);
+    outline-offset: 2px;
+  }
+  .btn-pill-primary { background: var(--color-action-blue); color: #fff; }
+  .btn-pill-primary:hover { background: var(--color-action-blue-focus); }
+  .btn-pill-secondary {
+    background: transparent;
+    color: var(--color-action-blue);
+    border: 1px solid var(--color-action-blue);
+  }
+  .btn-pill-secondary:hover { background: rgba(5, 150, 105, 0.08); }
+
+  /* ── Inline text links ───────────────────────────────────────────── */
+  .link-action { color: var(--color-action-blue); }
+  .link-action:hover { text-decoration: underline; }
+  .link-sky { color: var(--color-sky-link); }      /* dark-tile variant */
+  .link-sky:hover { text-decoration: underline; }
+
+  /* ── The single drop-shadow in the whole system ──────────────────── */
+  .product-shadow {
+    filter: drop-shadow(rgba(0, 0, 0, 0.22) 3px 5px 30px);
+  }
 }
